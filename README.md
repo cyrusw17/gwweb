@@ -1,7 +1,7 @@
 # gwweb: the live groundwork-web.com
 
 This repo is what cPanel deploys. It is a built copy of `public/` from
-[cyrusw17/GWAGENCY](https://github.com/cyrusw17/GWAGENCY) (built from d34d906 with
+[cyrusw17/GWAGENCY](https://github.com/cyrusw17/GWAGENCY) (built from 7debe6f with
 `node tools/build-cpanel.mjs`). Don't edit pages here; change them in GWAGENCY and rebuild.
 
 - `site/` is the website.
@@ -9,7 +9,7 @@ This repo is what cPanel deploys. It is a built copy of `public/` from
 - `deploy.sh` backs up public_html to ~/site-backups (keeps 10), replaces only the folders
   the site owns, and leaves everything else alone (api/config.php, .well-known, cgi-bin,
   any private folder).
-- `subdomains.txt` lists the subdomains to create, each with document root public_html.
+- Every page is a folder on groundwork-web.com (for example /auto-detailing/ and /auto-detailing/blog/). No subdomains are needed.
 
 Undo a deploy in cPanel Terminal:
 `cd ~ && rm -rf public_html && tar -xzf site-backups/public_html-YYYYMMDD-HHMMSS.tar.gz`

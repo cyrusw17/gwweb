@@ -5,93 +5,11 @@ Options -Indexes
 # Force HTTPS + canonical host (no www)
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
     RewriteCond %{HTTPS} !=on [OR]
-    RewriteCond %{HTTP:X-Forwarded-Proto} =http
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    # The demos moved to /work/ on the main host.
-    RewriteRule ^demos(?:/(.*))?$ https://groundwork-web.com/work/$1 [L,R=301]
-
-    # detailing.groundwork-web.com serves /auto-detailing/
-    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
-    RewriteRule ^auto-detailing(?:/(.*))?$ https://detailing.groundwork-web.com/$1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
-    RewriteCond %{THE_REQUEST} \s/+auto-detailing(?:/(\S*))?\s
-    RewriteRule ^ /%1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
-    RewriteRule ^(?:assets|api|kit|auto-detailing)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
-    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
-    RewriteCond %{DOCUMENT_ROOT}/auto-detailing/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/auto-detailing/$1 -d
-    RewriteRule ^(.*)$ auto-detailing/$1 [L]
-    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
-
-    # exterior.groundwork-web.com serves /exterior-cleaning/
-    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
-    RewriteRule ^exterior-cleaning(?:/(.*))?$ https://exterior.groundwork-web.com/$1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
-    RewriteCond %{THE_REQUEST} \s/+exterior-cleaning(?:/(\S*))?\s
-    RewriteRule ^ /%1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
-    RewriteRule ^(?:assets|api|kit|exterior-cleaning)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
-    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
-    RewriteCond %{DOCUMENT_ROOT}/exterior-cleaning/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/exterior-cleaning/$1 -d
-    RewriteRule ^(.*)$ exterior-cleaning/$1 [L]
-    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
-
-    # landscaping.groundwork-web.com serves /landscaping/
-    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
-    RewriteRule ^landscaping(?:/(.*))?$ https://landscaping.groundwork-web.com/$1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
-    RewriteCond %{THE_REQUEST} \s/+landscaping(?:/(\S*))?\s
-    RewriteRule ^ /%1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
-    RewriteRule ^(?:assets|api|kit|landscaping)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
-    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
-    RewriteCond %{DOCUMENT_ROOT}/landscaping/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/landscaping/$1 -d
-    RewriteRule ^(.*)$ landscaping/$1 [L]
-    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
-
-    # commercial.groundwork-web.com serves /commercial-cleaning/
-    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
-    RewriteRule ^commercial-cleaning(?:/(.*))?$ https://commercial.groundwork-web.com/$1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
-    RewriteCond %{THE_REQUEST} \s/+commercial-cleaning(?:/(\S*))?\s
-    RewriteRule ^ /%1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
-    RewriteRule ^(?:assets|api|kit|commercial-cleaning)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
-    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
-    RewriteCond %{DOCUMENT_ROOT}/commercial-cleaning/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/commercial-cleaning/$1 -d
-    RewriteRule ^(.*)$ commercial-cleaning/$1 [L]
-    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
-
-    # realestate.groundwork-web.com serves /real-estate/
-    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
-    RewriteRule ^real-estate(?:/(.*))?$ https://realestate.groundwork-web.com/$1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
-    RewriteCond %{THE_REQUEST} \s/+real-estate(?:/(\S*))?\s
-    RewriteRule ^ /%1 [L,R=301]
-    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
-    RewriteRule ^(?:assets|api|kit|real-estate)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
-    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
-    RewriteCond %{DOCUMENT_ROOT}/real-estate/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/real-estate/$1 -d
-    RewriteRule ^(.*)$ real-estate/$1 [L]
-    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+    RewriteCond %{HTTP_HOST} ^www\. [NC]
+    RewriteRule ^ https://groundwork-web.com%{REQUEST_URI} [L,R=301]
+    RewriteRule ^demos(?:/(.*))?$ /work/$1 [L,R=301]
 </IfModule>
 
 # Security headers
