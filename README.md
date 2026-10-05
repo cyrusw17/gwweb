@@ -1,7 +1,7 @@
 # gwweb: the live groundwork-web.com
 
 This repo is what cPanel deploys. It is a built copy of `public/` from
-[cyrusw17/GWAGENCY](https://github.com/cyrusw17/GWAGENCY) (built from 9cd316b with
+[cyrusw17/GWAGENCY](https://github.com/cyrusw17/GWAGENCY) (built from 83898e6 with
 `node tools/build-cpanel.mjs`). Don't edit pages here; change them in GWAGENCY and rebuild.
 
 - `site/` is the website.
