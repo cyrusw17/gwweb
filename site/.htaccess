@@ -1,0 +1,133 @@
+# groundwork-web.com — production web root (cPanel / LiteSpeed)
+DirectoryIndex index.html index.php
+Options -Indexes
+
+# Force HTTPS + canonical host (no www)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+    RewriteCond %{HTTPS} !=on [OR]
+    RewriteCond %{HTTP:X-Forwarded-Proto} =http
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # The demos moved to /work/ on the main host.
+    RewriteRule ^demos(?:/(.*))?$ https://groundwork-web.com/work/$1 [L,R=301]
+
+    # detailing.groundwork-web.com serves /auto-detailing/
+    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
+    RewriteRule ^auto-detailing(?:/(.*))?$ https://detailing.groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
+    RewriteCond %{THE_REQUEST} \s/+auto-detailing(?:/(\S*))?\s
+    RewriteRule ^ /%1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
+    RewriteRule ^(?:assets|api|kit|auto-detailing)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
+    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/auto-detailing/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/auto-detailing/$1 -d
+    RewriteRule ^(.*)$ auto-detailing/$1 [L]
+    RewriteCond %{HTTP_HOST} ^detailing\.groundwork-web\.com$ [NC]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+
+    # exterior.groundwork-web.com serves /exterior-cleaning/
+    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
+    RewriteRule ^exterior-cleaning(?:/(.*))?$ https://exterior.groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
+    RewriteCond %{THE_REQUEST} \s/+exterior-cleaning(?:/(\S*))?\s
+    RewriteRule ^ /%1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
+    RewriteRule ^(?:assets|api|kit|exterior-cleaning)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
+    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/exterior-cleaning/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/exterior-cleaning/$1 -d
+    RewriteRule ^(.*)$ exterior-cleaning/$1 [L]
+    RewriteCond %{HTTP_HOST} ^exterior\.groundwork-web\.com$ [NC]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+
+    # landscaping.groundwork-web.com serves /landscaping/
+    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
+    RewriteRule ^landscaping(?:/(.*))?$ https://landscaping.groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
+    RewriteCond %{THE_REQUEST} \s/+landscaping(?:/(\S*))?\s
+    RewriteRule ^ /%1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
+    RewriteRule ^(?:assets|api|kit|landscaping)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
+    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/landscaping/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/landscaping/$1 -d
+    RewriteRule ^(.*)$ landscaping/$1 [L]
+    RewriteCond %{HTTP_HOST} ^landscaping\.groundwork-web\.com$ [NC]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+
+    # commercial.groundwork-web.com serves /commercial-cleaning/
+    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
+    RewriteRule ^commercial-cleaning(?:/(.*))?$ https://commercial.groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
+    RewriteCond %{THE_REQUEST} \s/+commercial-cleaning(?:/(\S*))?\s
+    RewriteRule ^ /%1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
+    RewriteRule ^(?:assets|api|kit|commercial-cleaning)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
+    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/commercial-cleaning/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/commercial-cleaning/$1 -d
+    RewriteRule ^(.*)$ commercial-cleaning/$1 [L]
+    RewriteCond %{HTTP_HOST} ^commercial\.groundwork-web\.com$ [NC]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+
+    # realestate.groundwork-web.com serves /real-estate/
+    RewriteCond %{HTTP_HOST} ^groundwork-web\.com$ [NC]
+    RewriteRule ^real-estate(?:/(.*))?$ https://realestate.groundwork-web.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
+    RewriteCond %{THE_REQUEST} \s/+real-estate(?:/(\S*))?\s
+    RewriteRule ^ /%1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
+    RewriteRule ^(?:assets|api|kit|real-estate)/|^(?:robots\.txt|sitemap\.xml|favicon\.ico|404\.html)$ - [L]
+    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
+    RewriteCond %{DOCUMENT_ROOT}/real-estate/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/real-estate/$1 -d
+    RewriteRule ^(.*)$ real-estate/$1 [L]
+    RewriteCond %{HTTP_HOST} ^realestate\.groundwork-web\.com$ [NC]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^(.*)$ https://groundwork-web.com/$1 [L,R=301]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" "expr=%{HTTPS} == 'on'"
+    Header unset X-Powered-By
+    # CSP in report-only mode first (SEO audit fix 19): check the browser console on every page, then enforce
+    Header always set Content-Security-Policy-Report-Only "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'self'"
+    # Demo pages are embedded in iframes on our own pages only (SAMEORIGIN covers it)
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml application/xml
+</IfModule>
+
+# Caching. CSS/JS one day (no cache-busting query strings in the HTML), images longer, HTML never.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 day"
+    ExpiresByType application/javascript "access plus 1 day"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Block dotfiles and markdown
+<FilesMatch "^\.|\.md$">
+    Require all denied
+</FilesMatch>
+
+# Friendly 404
+ErrorDocument 404 /404.html
